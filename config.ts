@@ -26,7 +26,7 @@ export async function setUser(username: string) {
       )
     })
   } catch (err) {
-    throw new Error('Error writing the config file.')
+    throw new Error('Error while settings the username.')
   }
 }
 

@@ -1,15 +1,18 @@
-import { setUser, readConfig } from '../config'
+import { argv } from 'node:process'
+
+import { CommandsRegistry, handlerLogin, runCommand } from './commands'
+
+const commandsRegistry: CommandsRegistry = {
+  login: handlerLogin,
+}
 
 async function main() {
-  try {
-    await setUser('Esosek')
-    const config = await readConfig()
-    console.log(config)
-  } catch (err) {
-    if (err instanceof Error) {
-      console.log(err.message)
-    }
+  const [cmdName, ...cmdArgs] = argv.slice(2)
+  if (!cmdName) {
+    console.error('Please, provide more arguments.')
+    process.exit(1)
   }
+  runCommand(commandsRegistry, cmdName, ...cmdArgs)
 }
 
 main()
