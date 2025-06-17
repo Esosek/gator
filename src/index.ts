@@ -1,9 +1,12 @@
 import { argv } from 'node:process'
 
-import { CommandsRegistry, handlerLogin, runCommand } from './commands'
+import { CommandsRegistry, runCommand } from './commands'
+import handlerLogin from './command_handlers/handler_login'
+import handlerRegister from './command_handlers/handler_register'
 
 const commandsRegistry: CommandsRegistry = {
   login: handlerLogin,
+  register: handlerRegister
 }
 
 async function main() {
@@ -12,7 +15,8 @@ async function main() {
     console.error('Please, provide more arguments.')
     process.exit(1)
   }
-  runCommand(commandsRegistry, cmdName, ...cmdArgs)
+  await runCommand(commandsRegistry, cmdName, ...cmdArgs)
+  process.exit(0)
 }
 
 main()
