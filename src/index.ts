@@ -5,12 +5,14 @@ import handlerLogin from './command_handlers/handler_login'
 import handlerRegister from './command_handlers/handler_register'
 import handlerReset from './command_handlers/handler_reset'
 import handlerUsers from './command_handlers/handler_users'
+import handlerAgg from './command_handlers/handler_agg'
 
 const commandsRegistry: CommandsRegistry = {
   login: handlerLogin,
   register: handlerRegister,
   reset: handlerReset,
-  users: handlerUsers
+  users: handlerUsers,
+  agg: handlerAgg
 }
 
 async function main() {
