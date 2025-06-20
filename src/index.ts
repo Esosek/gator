@@ -8,6 +8,7 @@ import handlerUsers from './command_handlers/handler_users'
 import handlerAgg from './command_handlers/handler_agg'
 import handlerAddFeed from './command_handlers/handler_addfeed'
 import handlerFeeds from './command_handlers/handler_feeds'
+import handlerFollow from './command_handlers/handler_follow'
 
 const commandsRegistry: CommandsRegistry = {
   login: handlerLogin,
@@ -16,7 +17,8 @@ const commandsRegistry: CommandsRegistry = {
   users: handlerUsers,
   agg: handlerAgg,
   addfeed: handlerAddFeed,
-  feeds: handlerFeeds
+  feeds: handlerFeeds,
+  follow: handlerFollow
 }
 
 async function main() {

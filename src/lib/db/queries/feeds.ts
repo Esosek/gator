@@ -12,6 +12,11 @@ export async function createFeed(name: string, url: string, userId: string) {
   return result
 }
 
+export async function getFeed(feedUrl: string) {
+  const [feed] = await db.select().from(feeds).where(eq(feeds.url, feedUrl))
+  return feed
+}
+
 export async function getFeeds() {
   const result = await db
     .select({ name: feeds.name, url: feeds.url, user: users.name })
