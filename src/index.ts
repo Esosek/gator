@@ -1,27 +1,6 @@
 import { argv } from 'node:process'
 
-import { CommandsRegistry, runCommand } from './commands'
-import handlerLogin from './command_handlers/handler_login'
-import handlerRegister from './command_handlers/handler_register'
-import handlerReset from './command_handlers/handler_reset'
-import handlerUsers from './command_handlers/handler_users'
-import handlerAgg from './command_handlers/handler_agg'
-import handlerAddFeed from './command_handlers/handler_addfeed'
-import handlerFeeds from './command_handlers/handler_feeds'
-import handlerFollow from './command_handlers/handler_follow'
-import handlerFollowing from './command_handlers/handler_following'
-
-const commandsRegistry: CommandsRegistry = {
-  login: handlerLogin,
-  register: handlerRegister,
-  reset: handlerReset,
-  users: handlerUsers,
-  agg: handlerAgg,
-  addfeed: handlerAddFeed,
-  feeds: handlerFeeds,
-  follow: handlerFollow,
-  following: handlerFollowing
-}
+import { runCommand, commandsRegistry } from './commands'
 
 async function main() {
   const [cmdName, ...cmdArgs] = argv.slice(2)

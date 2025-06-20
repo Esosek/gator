@@ -1,12 +1,9 @@
-import { readConfig } from '../config'
 import { getFeedFollowsForUser } from '../lib/db/queries/user_feed'
-import { getUser } from '../lib/db/queries/users'
+import { User } from '../lib/db/queries/users'
 
-async function handlerFollowing() {
+async function handlerFollowing(cmdName: string, user: User) {
   try {
-    const { currentUserName } = await readConfig()
-    const { id: userId } = await getUser(currentUserName)
-    const userFeedFollows = await getFeedFollowsForUser(userId)
+    const userFeedFollows = await getFeedFollowsForUser(user.id)
     userFeedFollows.forEach((i) => console.log(i.feed))
   } catch (error) {
     console.error('Listing followed feeds failed.')

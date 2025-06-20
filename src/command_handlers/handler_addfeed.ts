@@ -1,9 +1,8 @@
-import { readConfig } from '../config'
 import { createFeed, type Feed } from '../lib/db/queries/feeds'
 import { createFeedFollow } from '../lib/db/queries/user_feed'
-import { getUser, type User } from '../lib/db/queries/users'
+import { type User } from '../lib/db/queries/users'
 
-async function handlerAddFeed(cmdName: string, ...args: string[]) {
+async function handlerAddFeed(cmdName: string, user: User, ...args: string[]) {
   if (args.length < 1) {
     console.error('Please provide a feed name.')
     process.exit(1)
@@ -13,8 +12,6 @@ async function handlerAddFeed(cmdName: string, ...args: string[]) {
     process.exit(1)
   }
   try {
-    const { currentUserName } = await readConfig()
-    const user = await getUser(currentUserName)
     const [name, url] = args
     const feed = await createFeed(name, url, user.id)
     await createFeedFollow(user.id, feed.id)
