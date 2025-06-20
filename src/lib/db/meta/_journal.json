@@ -15,6 +15,13 @@
       "when": 1750345893146,
       "tag": "0001_careful_spacker_dave",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1750413818818,
+      "tag": "0002_gigantic_butterfly",
+      "breakpoints": true
     }
   ]
 }

@@ -6,13 +6,15 @@ import handlerRegister from './command_handlers/handler_register'
 import handlerReset from './command_handlers/handler_reset'
 import handlerUsers from './command_handlers/handler_users'
 import handlerAgg from './command_handlers/handler_agg'
+import handlerAddFeed from './command_handlers/handler_addfeed'
 
 const commandsRegistry: CommandsRegistry = {
   login: handlerLogin,
   register: handlerRegister,
   reset: handlerReset,
   users: handlerUsers,
-  agg: handlerAgg
+  agg: handlerAgg,
+  addfeed: handlerAddFeed
 }
 
 async function main() {
