@@ -7,6 +7,7 @@ import handlerReset from './command_handlers/handler_reset'
 import handlerUsers from './command_handlers/handler_users'
 import handlerAgg from './command_handlers/handler_agg'
 import handlerAddFeed from './command_handlers/handler_addfeed'
+import handlerFeeds from './command_handlers/handler_feeds'
 
 const commandsRegistry: CommandsRegistry = {
   login: handlerLogin,
@@ -14,7 +15,8 @@ const commandsRegistry: CommandsRegistry = {
   reset: handlerReset,
   users: handlerUsers,
   agg: handlerAgg,
-  addfeed: handlerAddFeed
+  addfeed: handlerAddFeed,
+  feeds: handlerFeeds
 }
 
 async function main() {

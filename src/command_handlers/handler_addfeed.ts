@@ -18,6 +18,7 @@ async function handlerAddFeed(cmdName: string, ...args: string[]) {
     const feed = await createFeed(name, url, user.id)
     printFeed(user, feed)
   } catch (error) {
+    console.log(error)
     console.error('Adding new feed failed.')
     process.exit(1)
   }
