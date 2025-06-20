@@ -1,5 +1,6 @@
 import { readConfig } from '../config'
 import { createFeed, type Feed } from '../lib/db/queries/feeds'
+import { createFeedFollow } from '../lib/db/queries/user_feed'
 import { getUser, type User } from '../lib/db/queries/users'
 
 async function handlerAddFeed(cmdName: string, ...args: string[]) {
@@ -16,6 +17,7 @@ async function handlerAddFeed(cmdName: string, ...args: string[]) {
     const user = await getUser(currentUserName)
     const [name, url] = args
     const feed = await createFeed(name, url, user.id)
+    await createFeedFollow(user.id, feed.id)
     printFeed(user, feed)
   } catch (error) {
     console.log(error)
