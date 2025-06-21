@@ -4,8 +4,8 @@ async function handlerReset(cmdName: string) {
   try {
     await deleteAllUsers()
     console.log('All users were deleted.')
-  } catch (err) {
-    console.log('Deleting all users failed.')
+  } catch (error) {
+    console.error('Reseting db failed:', error)
     process.exit(1)
   }
 }

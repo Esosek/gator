@@ -11,8 +11,8 @@ export async function setUser(username: string) {
   try {
     const currentConfig = await readConfig()
     const updatedConfig = {
-      "db_url": currentConfig.dbUrl,
-      "current_user_name": username,
+      db_url: currentConfig.dbUrl,
+      current_user_name: username
     }
     return new Promise<void>((resolve) => {
       fs.writeFile(
@@ -26,7 +26,7 @@ export async function setUser(username: string) {
       )
     })
   } catch (err) {
-    throw new Error('Error while settings the username.')
+    throw new Error('Setting current user failed')
   }
 }
 
@@ -34,13 +34,13 @@ export function readConfig() {
   return new Promise<Config>((resolve, reject) => {
     fs.readFile(getConfigFilePath(), 'utf-8', (err, data) => {
       if (err) {
-        reject(new Error('Error reading the config file.'))
+        reject(new Error('Error reading the config file'))
       }
       try {
         const config = validateConfig(JSON.parse(data))
         resolve(config)
       } catch (parseErr) {
-        reject(new Error('Error parsing the config file.'))
+        reject(new Error('Error parsing the config file'))
       }
     })
   })
@@ -54,10 +54,10 @@ function getConfigFilePath() {
 function validateConfig(rawConfig: any): Config {
   const validatedConfig: Config = {
     dbUrl: rawConfig['db_url'] || '',
-    currentUserName: rawConfig['current_user_name'] || '',
+    currentUserName: rawConfig['current_user_name'] || ''
   }
   if (!validatedConfig.dbUrl) {
-    throw new Error('Database URL is required in the configuration.')
+    throw new Error('Database URL is missing in the configuration')
   }
   return validatedConfig
 }

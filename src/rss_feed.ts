@@ -28,7 +28,7 @@ export async function fetchFeed(url: string) {
     const rssFeed = validateData(parsedBody.rss)
     return rssFeed
   } catch (error) {
-    console.log(error)
+    throw new Error('Fetching feed failed: ' + error)
   }
 }
 
@@ -37,7 +37,7 @@ function validateData(body: any) {
     throw new Error('Channel field does not exist')
   }
   if (!body.channel.title || !body.channel.link || !body.channel.description) {
-    throw new Error('Missing required channel fields.')
+    throw new Error('Missing required channel fields')
   }
   const rssFeed: RSSFeed = {
     channel: {

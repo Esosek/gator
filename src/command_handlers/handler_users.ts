@@ -5,8 +5,7 @@ async function handlerUsers(cmdName: string) {
   try {
     const users = await getUsers()
     if (!users.length) {
-      console.log('No users found.')
-      process.exit(1)
+      throw new Error('No users found')
     }
     const { currentUserName } = await readConfig()
     for (const user of users) {
@@ -14,7 +13,7 @@ async function handlerUsers(cmdName: string) {
       console.log(`* ${user.username} ${isLoggedIn ? '(current)' : ''}`)
     }
   } catch (error) {
-    console.error('Fetching users failed.')
+    console.error('Listing all users failed:', error)
   }
 }
 

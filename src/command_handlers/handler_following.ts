@@ -6,7 +6,7 @@ async function handlerFollowing(cmdName: string, user: User) {
     const userFeedFollows = await getFeedFollowsForUser(user.id)
     userFeedFollows.forEach((i) => console.log(i.feed))
   } catch (error) {
-    console.error('Listing followed feeds failed.')
+    console.error('Listing user followed feeds failed:', error)
     process.exit(1)
   }
 }

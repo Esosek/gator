@@ -25,13 +25,17 @@ const middlewareLoggedIn: middlewareLoggedIn = (
   handler: UserCommandHandler
 ) => {
   return async (cmdName: string, ...args: string[]) => {
-    const { currentUserName } = await readConfig()
-    const user = await getUser(currentUserName)
-    if (!user) {
-      console.error('User not logged in')
+    try {
+      const { currentUserName } = await readConfig()
+      const user = await getUser(currentUserName)
+      if (!user) {
+        throw new Error('User not logged in')
+      }
+      await handler(cmdName, user, ...args)
+    } catch (error) {
+      console.error(error)
       process.exit(1)
     }
-    await handler(cmdName, user, ...args)
   }
 }
 

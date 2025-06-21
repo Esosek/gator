@@ -12,7 +12,7 @@ async function handlerAgg(cmdName: string, ...args: string[]) {
       })
     }
   } catch (error) {
-    console.error(error)
+    console.error('Aggregation failed:', error)
     process.exit(1)
   }
 }

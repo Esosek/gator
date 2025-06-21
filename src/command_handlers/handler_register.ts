@@ -12,8 +12,8 @@ async function handlerRegister(cmdName: string, ...args: string[]) {
     await setUser(user.name)
     console.log('User ' + user.name + ' was created.')
     console.log(user)
-  } catch (err) {
-    console.log('Registering a new user failed.')
+  } catch (error) {
+    console.error('Registering a new user failed:', error)
     process.exit(1)
   }
 }

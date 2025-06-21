@@ -5,7 +5,7 @@ async function handlerFeeds() {
     const feeds = await getFeeds()
     feeds.forEach((feed) => console.log(feed))
   } catch (error) {
-    console.error('Fetching feeds failed.')
+    console.error('Listing all feeds failed:', error)
     process.exit(1)
   }
 }
