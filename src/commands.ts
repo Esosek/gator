@@ -10,6 +10,7 @@ import handlerLogin from './command_handlers/handler_login'
 import handlerRegister from './command_handlers/handler_register'
 import handlerReset from './command_handlers/handler_reset'
 import handlerUsers from './command_handlers/handler_users'
+import handlerUnfollow from './command_handlers/handler_unfollow'
 
 type CommandHandler = (cmdName: string, ...args: string[]) => Promise<void>
 type UserCommandHandler = (
@@ -39,20 +40,17 @@ const middlewareLoggedIn: middlewareLoggedIn = (
   }
 }
 
-export const commandsRegistry: CommandsRegistry = {}
-registerCommand(commandsRegistry, 'login', handlerLogin)
-registerCommand(commandsRegistry, 'register', handlerRegister)
-registerCommand(commandsRegistry, 'reset', handlerReset)
-registerCommand(commandsRegistry, 'users', handlerUsers)
-registerCommand(commandsRegistry, 'agg', handlerAgg)
-registerCommand(commandsRegistry, 'addfeed', middlewareLoggedIn(handlerAddFeed))
-registerCommand(commandsRegistry, 'feeds', handlerFeeds)
-registerCommand(commandsRegistry, 'follow', middlewareLoggedIn(handlerFollow))
-registerCommand(
-  commandsRegistry,
-  'following',
-  middlewareLoggedIn(handlerFollowing)
-)
+export const cmdRegistry: CommandsRegistry = {}
+registerCommand(cmdRegistry, 'login', handlerLogin)
+registerCommand(cmdRegistry, 'register', handlerRegister)
+registerCommand(cmdRegistry, 'reset', handlerReset)
+registerCommand(cmdRegistry, 'users', handlerUsers)
+registerCommand(cmdRegistry, 'agg', handlerAgg)
+registerCommand(cmdRegistry, 'addfeed', middlewareLoggedIn(handlerAddFeed))
+registerCommand(cmdRegistry, 'feeds', handlerFeeds)
+registerCommand(cmdRegistry, 'follow', middlewareLoggedIn(handlerFollow))
+registerCommand(cmdRegistry, 'following', middlewareLoggedIn(handlerFollowing))
+registerCommand(cmdRegistry, 'unfollow', middlewareLoggedIn(handlerUnfollow))
 
 export async function runCommand(
   registry: CommandsRegistry,

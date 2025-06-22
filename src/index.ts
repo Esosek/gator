@@ -1,6 +1,6 @@
 import { argv } from 'node:process'
 
-import { runCommand, commandsRegistry } from './commands'
+import { runCommand, cmdRegistry } from './commands'
 
 async function main() {
   const [cmdName, ...cmdArgs] = argv.slice(2)
@@ -8,7 +8,7 @@ async function main() {
     console.error('Please, provide more arguments.')
     process.exit(1)
   }
-  await runCommand(commandsRegistry, cmdName, ...cmdArgs)
+  await runCommand(cmdRegistry, cmdName, ...cmdArgs)
   process.exit(0)
 }
 
