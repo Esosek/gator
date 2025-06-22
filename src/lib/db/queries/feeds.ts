@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm'
+import { eq, sql } from 'drizzle-orm'
 import { db } from '..'
 import { feeds, users } from '../schema'
 
@@ -34,5 +34,28 @@ export async function getFeeds() {
     return result
   } catch (error) {
     throw new Error('Reading feeds from db failed')
+  }
+}
+
+export async function markFeedFetched(feedId: string) {
+  try {
+    await db
+      .update(feeds)
+      .set({ lastFetchedAt: new Date() })
+      .where(eq(feeds.id, feedId))
+  } catch (error) {
+    throw new Error('Marking feed as fetched in db failed')
+  }
+}
+
+export async function getNextFeedToFetch(): Promise<Feed> {
+  try {
+    const [oldestFetchedFeed] = await db
+      .select()
+      .from(feeds)
+      .orderBy(sql`last_fetched_at asc nulls first`)
+    return oldestFetchedFeed
+  } catch (error) {
+    throw new Error('Getting next feed to fetch in db failed')
   }
 }
