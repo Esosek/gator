@@ -11,6 +11,7 @@ import handlerRegister from './command_handlers/handler_register'
 import handlerReset from './command_handlers/handler_reset'
 import handlerUsers from './command_handlers/handler_users'
 import handlerUnfollow from './command_handlers/handler_unfollow'
+import handlerBrowse from './command_handlers/handler_browse'
 
 type CommandHandler = (cmdName: string, ...args: string[]) => Promise<void>
 type UserCommandHandler = (
@@ -51,6 +52,7 @@ registerCommand(cmdRegistry, 'feeds', handlerFeeds)
 registerCommand(cmdRegistry, 'follow', middlewareLoggedIn(handlerFollow))
 registerCommand(cmdRegistry, 'following', middlewareLoggedIn(handlerFollowing))
 registerCommand(cmdRegistry, 'unfollow', middlewareLoggedIn(handlerUnfollow))
+registerCommand(cmdRegistry, 'browse', middlewareLoggedIn(handlerBrowse))
 
 export async function runCommand(
   registry: CommandsRegistry,

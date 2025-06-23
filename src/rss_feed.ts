@@ -1,16 +1,17 @@
 import { XMLParser } from 'fast-xml-parser'
 import { getNextFeedToFetch, markFeedFetched } from './lib/db/queries/feeds'
+import { createPost } from './lib/db/queries/posts'
 
 type RSSFeed = {
   channel: {
     title: string
     link: string
     description: string
-    item: RSSItem[]
+    item: Post[]
   }
 }
 
-type RSSItem = {
+export type Post = {
   title: string
   link: string
   description: string
@@ -51,12 +52,12 @@ function validateData(body: any) {
   return rssFeed
 }
 
-function extractItem(item: any): RSSItem[] {
+function extractItem(item: any): Post[] {
   if (!Array.isArray(item)) {
     return []
   }
   const result = item
-    .map((i): RSSItem | undefined => {
+    .map((i): Post | undefined => {
       if (i.title && i.link && i.description && i.pubDate) {
         return {
           title: i.title,
@@ -72,6 +73,7 @@ function extractItem(item: any): RSSItem[] {
 
 export async function scrapeFeeds() {
   try {
+    console.log('Fetching feeds...')
     const feedToFetch = await getNextFeedToFetch()
     if (!feedToFetch) {
       console.log('No feeds to fetch')
@@ -79,8 +81,9 @@ export async function scrapeFeeds() {
     }
     await markFeedFetched(feedToFetch.id)
     const fetchedFeed = await fetchFeed(feedToFetch.url)
-    fetchedFeed.channel.item.forEach((i) => {
-      console.log(i.title)
+    console.log('Fetched channel ' + fetchedFeed.channel.title)
+    fetchedFeed.channel.item.forEach(async (i) => {
+      await createPost(i, feedToFetch.id)
     })
   } catch (error) {
     console.error('Scraping feeds failed: ', error)
