@@ -1,7 +1,7 @@
 import { getFeedFollowsForUser } from '../lib/db/queries/user_feed'
 import { User } from '../lib/db/queries/users'
 
-async function handlerFollowing(cmdName: string, user: User) {
+async function handlerFollowing(user: User) {
   try {
     const userFeedFollows = await getFeedFollowsForUser(user.id)
     userFeedFollows.forEach((i) => console.log(i.feed))

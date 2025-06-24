@@ -2,7 +2,7 @@ import { createFeed, type Feed } from '../lib/db/queries/feeds'
 import { createFeedFollow } from '../lib/db/queries/user_feed'
 import { type User } from '../lib/db/queries/users'
 
-async function handlerAddFeed(cmdName: string, user: User, ...args: string[]) {
+async function handlerAddFeed(user: User, ...args: string[]) {
   try {
     if (args.length < 1) {
       throw new Error('Missing feed name and url')

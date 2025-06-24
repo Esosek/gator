@@ -13,12 +13,8 @@ import handlerUsers from './command_handlers/handler_users'
 import handlerUnfollow from './command_handlers/handler_unfollow'
 import handlerBrowse from './command_handlers/handler_browse'
 
-type CommandHandler = (cmdName: string, ...args: string[]) => Promise<void>
-type UserCommandHandler = (
-  cmdName: string,
-  user: User,
-  ...args: string[]
-) => Promise<void>
+type CommandHandler = (...args: string[]) => Promise<void>
+type UserCommandHandler = (user: User, ...args: string[]) => Promise<void>
 
 type middlewareLoggedIn = (handler: UserCommandHandler) => CommandHandler
 type CommandsRegistry = Record<string, CommandHandler>
@@ -33,7 +29,7 @@ const middlewareLoggedIn: middlewareLoggedIn = (
       if (!user) {
         throw new Error('User not logged in')
       }
-      await handler(cmdName, user, ...args)
+      await handler(user, ...args)
     } catch (error) {
       console.error(error)
       process.exit(1)
@@ -64,7 +60,7 @@ export async function runCommand(
     console.error(`Unknown command: ${cmdName}`)
     process.exit(1)
   }
-  await handler(cmdName, ...args)
+  await handler(...args)
 }
 
 function registerCommand(

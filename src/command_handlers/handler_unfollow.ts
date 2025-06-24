@@ -2,7 +2,7 @@ import { getFeed } from '../lib/db/queries/feeds'
 import { deleteFeedFollow } from '../lib/db/queries/user_feed'
 import { User } from '../lib/db/queries/users'
 
-async function handlerUnfollow(cmdName: string, user: User, ...args: string[]) {
+async function handlerUnfollow(user: User, ...args: string[]) {
   try {
     if (args.length < 1) {
       throw new Error('Missing feed url')

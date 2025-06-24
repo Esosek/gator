@@ -2,7 +2,7 @@ import { getFeed } from '../lib/db/queries/feeds'
 import { createFeedFollow } from '../lib/db/queries/user_feed'
 import { User } from '../lib/db/queries/users'
 
-async function handlerFollow(cmdName: string, user: User, ...args: string[]) {
+async function handlerFollow(user: User, ...args: string[]) {
   try {
     if (args.length === 0) {
       throw new Error('Missing feed url')
